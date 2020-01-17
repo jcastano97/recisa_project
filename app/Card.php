@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Card extends Model
 {
+    protected $fillable = [
+        'enabled', 'client_id'
+    ];
+
     public function client()
     {
         return $this->belongsTo('App\Client');
@@ -24,7 +28,7 @@ class Card extends Model
     public function inventory()
     {
         return $this->hasMany('App\Inventory')
-            ->where('egress_date', '==', null);
+            ->whereNull('egress_date');
     }
 
     public function inventories()

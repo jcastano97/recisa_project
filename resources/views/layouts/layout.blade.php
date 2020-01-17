@@ -9,8 +9,34 @@
 </head>
 <body>
 
-<div class="container-fluid" style="margin-top: 100px">
-
+<div class="container-fluid" style="margin-top: 70px; margin-bottom: 70px">
+    <?php
+    if (Auth::user() != null) {
+        $error = "";
+            $assigment = Auth::user()->adviser()->first()->actual_assigment()->first();
+        if ($assigment == null) {
+            $error = "Lo sentimos, actualmente su usuario no a sido asignado a ninguna estación.";
+        } else {
+            $station = $assigment->station()->first();
+        }
+    ?>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h1>{{$error}}</h1>
+            <div class="row" style="display: flex; justify-content: space-between;">
+                <div style="display: flex">
+                    <a href="{{ route('client.index') }}" class="btn btn-info" >Cliente</a>
+                    <a href="{{ route('purchase.index') }}" class="btn btn-info" >Ventas</a>
+                </div>
+                <div>
+                    <a href="{{ route('logout') }}" class="btn btn-info" >Cerrar sesión</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <?php
+    }
+    ?>
     @yield('content')
 </div>
 <style type="text/css">

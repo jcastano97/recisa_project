@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Purchase extends Model
 {
+    protected $fillable = [
+        'amount', 'adviser_id', 'client_id', 'inventory_id'
+    ];
+
     public function adviser()
     {
         return $this->belongsTo('App\Adviser');

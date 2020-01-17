@@ -10,4 +10,9 @@ class Assigment extends Model
     {
         return $this->belongsTo('App\Adviser');
     }
+
+    public function station()
+    {
+        return $this->belongsTo('App\Station');
+    }
 }

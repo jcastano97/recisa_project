@@ -10,9 +10,26 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes(['register' => false]);
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::get('/', function () {
-    return view('welcome');
+    if(Auth()->user() != null) {
+        return redirect()->route('client.index');
+    } else {
+        return redirect()->route('login');
+    }
+});
+Route::get('/home', function () {
+    if(Auth()->user() != null) {
+        return redirect()->route('client.index');
+    } else {
+        return redirect()->route('login');
+    }
 });
 
-Route::resource('client', 'ClientController');
+Route::group(['middleware' => ['auth']], function () {
+    Route::resource('client', 'ClientController');
+
+    Route::resource('purchase', 'PurchaseController');
+});
