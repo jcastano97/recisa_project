@@ -9,6 +9,11 @@ class Station extends Model
     public function inventories()
     {
         return $this->hasMany('App\Inventory')
-            ->where('egress_date', '=', null);
+            ->whereNull('egress_date');
+    }
+
+    public function assigments()
+    {
+        return $this->hasMany('App\Assigment');
     }
 }
